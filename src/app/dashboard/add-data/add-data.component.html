@@ -1,11 +1,44 @@
 <form [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
     <h2>Ihr Kind anmelden!</h2>
-    <input placeholder="Name" type="input" formControlName="name"><br />
-    <input placeholder="Geburtsdatum" type="date" formControlName="birthDate"><br />
-    <select formControlName="kindergardenId">
-        <option value="" disabled>Bitte auswählen</option>
-        <option *ngFor="let kindergarden of storeService.kindergardens" [ngValue]="kindergarden.id">
-            {{kindergarden.name}}, {{kindergarden.address}}</option>
-    </select>
-    <button type="submit">Erfassen</button>
+    <mat-form-field hintLabel="Max 60 Zeichen">
+        <mat-label>Name</mat-label>
+        <input maxlength="60" #name matInput placeholder="Max Mustermann" type="input" formControlName="name" required>
+        <mat-hint align="end">{{name.value.length}}/60</mat-hint>
+        <mat-error>{{getErrorMessage("name")}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Geburtsdatum</mat-label>
+        <input  matInput #birthDate [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="birthDate" required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint>Datum muss zwischen 01/01/2016 und heute sein</mat-hint>
+        <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
+       
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Kindergarten</mat-label>
+        <mat-select #kindergardenId formControlName="kindergardenId" required>
+            <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
+                {{kindergarden.name}}, {{kindergarden.address}}</mat-option>
+        </mat-select>
+        <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Erfassen</button>
 </form>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Bestätigung</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Du hast dein Kind erfolgreich angemeldet!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+    </div>
+</div>
