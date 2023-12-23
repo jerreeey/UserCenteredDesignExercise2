@@ -31,6 +31,7 @@ export class AddDataComponent implements OnInit{
     this.addChildForm = this.formbuilder.group({
       name: ['', [Validators.required]],
       kindergardenId: ['', Validators.required],
+      signUpDate: [this.getCurrentDate()],
       birthDate: [null, Validators.required],
     })
     this.myModal = document.getElementById('exampleModal')
@@ -59,5 +60,14 @@ export class AddDataComponent implements OnInit{
     } else {
         return '';
     }
+  }
+
+  private getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

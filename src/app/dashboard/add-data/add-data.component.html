@@ -1,44 +1,57 @@
-<form [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
-    <h2>Ihr Kind anmelden!</h2>
-    <mat-form-field hintLabel="Max 60 Zeichen">
-        <mat-label>Name</mat-label>
-        <input maxlength="60" #name matInput placeholder="Max Mustermann" type="input" formControlName="name" required>
-        <mat-hint align="end">{{name.value.length}}/60</mat-hint>
-        <mat-error>{{getErrorMessage("name")}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Geburtsdatum</mat-label>
-        <input  matInput #birthDate [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="birthDate" required>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-hint>Datum muss zwischen 01/01/2016 und heute sein</mat-hint>
-        <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
-       
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Kindergarten</mat-label>
-        <mat-select #kindergardenId formControlName="kindergardenId" required>
-            <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
-                {{kindergarden.name}}, {{kindergarden.address}}</mat-option>
-        </mat-select>
-        <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Erfassen</button>
-</form>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2 class="mt-4 mb-4">Anmeldeformular</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form  #formDirective="ngForm" [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
+        <h3>Ihr Kind anmelden!</h3>
+        <div class="row">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Bestätigung</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Du hast dein Kind erfolgreich angemeldet!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+            <mat-form-field class="col-4" hintLabel="Max 60 Zeichen">
+                <mat-label>Name</mat-label>
+                <input maxlength="60" #name matInput placeholder="Max Mustermann" type="input" formControlName="name" required>
+                <mat-hint align="end">{{name.value.length}}/60</mat-hint>
+                <mat-error>{{getErrorMessage("name")}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label class="col-4">Geburtsdatum</mat-label>
+                <input  matInput #birthDate [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="birthDate" required>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint>Datum muss zwischen 01/01/2016 und heute sein</mat-hint>
+                <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
+                
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col-4">
+                <mat-label>Kindergarten</mat-label>
+                <mat-select #kindergardenId formControlName="kindergardenId" required>
+                    <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
+                        {{kindergarden.name}}, {{kindergarden.address}}</mat-option>
+                </mat-select>
+                <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
+            </mat-form-field>
+        </div>
+            <input maxlength="60" hidden  placeholder="Max Mustermann" type="input" formControlName="signUpDate">
+            <button mat-raised-button color="primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Erfassen</button>
+        </form>
+    </mat-expansion-panel>
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Bestätigung</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Du hast dein Kind erfolgreich angemeldet!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" mat-raised-button color="warn" data-bs-dismiss="modal">Schließen</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>

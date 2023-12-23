@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { BackendService } from 'src/app/shared/backend.service';
 import { CHILDREN_PER_PAGE } from 'src/app/shared/constants';
 import { StoreService } from 'src/app/shared/store.service';
@@ -14,9 +15,17 @@ export class DataComponent implements OnInit {
   @Input() currentPage!: number;
   @Output() selectPageEvent = new EventEmitter<number>();
   public page: number = 0;
+  public selectedKindergarten: string = ''; 
+  public selectedSort: string = 'name';
+  public childrenPerPage: number = CHILDREN_PER_PAGE;
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   ngOnInit(): void {
-    this.backendService.getChildren(this.currentPage);
+    this.backendService.getChildren(this.currentPage, this.selectedKindergarten, this.selectedSort);
+  }
+  
+  filterTable() {
+    this.backendService.getChildren(this.currentPage, this.selectedKindergarten, this.selectedSort);
   }
 
   getAge(birthDate: string) {
@@ -33,7 +42,7 @@ export class DataComponent implements OnInit {
   selectPage(i: any) {
     let currentPage = i;
     this.selectPageEvent.emit(currentPage)
-    this.backendService.getChildren(currentPage);
+    this.backendService.getChildren(currentPage, this.selectedKindergarten, this.selectedSort);
   }
 
   public returnAllPages() {
@@ -41,9 +50,13 @@ export class DataComponent implements OnInit {
   }
 
   public cancelRegistration(childId: string) {
-    console.log(childId);
-    this.backendService.deleteChildData(childId, this.currentPage);
-    console.log(this.currentPage);
+
+    if(this.returnAllPages() == this.currentPage && this.storeService.childrenTotalCount % CHILDREN_PER_PAGE == 1) {
+      this.backendService.deleteChildData(childId, this.currentPage, true);
+      this.paginator?.previousPage();
+    } else {
+      this.backendService.deleteChildData(childId, this.currentPage, false);
+    }
   }
 }
 

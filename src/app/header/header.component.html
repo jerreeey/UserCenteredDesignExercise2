@@ -1,8 +1,8 @@
 <mat-toolbar class="flex">
     <h1>{{ title }}</h1>
-    <img width="230" src={{imagePath}}>
+    <img width="230" class="d-none d-md-block" src={{imagePath}}>
     <div>
-        <a mat-button [routerLink]="['/dashboard']">Dashboard</a>&nbsp;&nbsp;
+        <a mat-button [routerLink]="['/dashboard']">Dashboard</a>
         <a mat-button [routerLink]="['/about']">About</a>
     </div>
 </mat-toolbar>

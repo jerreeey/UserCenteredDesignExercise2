@@ -7,8 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DataComponent } from './dashboard/data/data.component';
 import { AddDataComponent } from './dashboard/add-data/add-data.component';
+import { KindergardenlistComponent } from './dashboard/kindergardenlist/kindergardenlist.component';
+import { KindergardenComponent } from './kindergarden/kindergarden.component'
 import { HeaderComponent } from './header/header.component';
-import { ButtonComponent } from './dashboard/button/button.component';
 import { PaginationPipe } from './dashboard/data/pagination.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -19,15 +20,19 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     AddDataComponent,
+    KindergardenlistComponent,
+    KindergardenComponent,
     DataComponent,
     HeaderComponent,
-    ButtonComponent,
     PaginationPipe
   ],
   imports: [
@@ -45,6 +50,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatNativeDateModule,
     MatToolbarModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatCardModule
 
   ],
   providers: [],

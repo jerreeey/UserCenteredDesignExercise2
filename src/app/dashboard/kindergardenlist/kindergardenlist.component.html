@@ -1,0 +1,6 @@
+<h2>Liste der Kindergärten</h2>
+<div class=" text-center">
+    <div class="row row-cols-1 row-cols-sm-2 m-0 g-0 gy-2 g-sm-2">
+        <a mat-raised-button [routerLink]="['/kindergarden', kindergarden.id]" *ngFor="let kindergarden of storeService.kindergardens" style="height: 100px" class="col">{{kindergarden.name}}</a>
+  </div>
+</div>

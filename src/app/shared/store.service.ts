@@ -12,4 +12,6 @@ export class StoreService {
   public kindergardens: Kindergarden[] = [];
   public children: ChildResponse[] = []
   public childrenTotalCount: number = 0;
+  public isLoading: boolean = false;
+  public selectedKindergarden: Kindergarden = {} as Kindergarden;
 }

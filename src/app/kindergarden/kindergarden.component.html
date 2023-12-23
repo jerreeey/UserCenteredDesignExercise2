@@ -1,0 +1,24 @@
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+        <div *ngFor="let i of [1,2,3]; let isFirst = first" class="carousel-item" [ngClass]="{'active': isFirst}">
+            <img [src]="'../../assets/images/kindergarden-' + this.storeService.selectedKindergarden.id + '-' + i + '.jpg'" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<div class="container">
+    <h1 class="mt-5">{{this.storeService.selectedKindergarden.name}}</h1>
+    <div class="row row-cols-1 gy-3">
+        <div class="col"><strong>Adresse:</strong> {{ this.storeService.selectedKindergarden.address }}</div>
+        <div class="col"><strong>Betreiber:</strong> {{ this.storeService.selectedKindergarden.betreiber }}</div>
+        <div class="col"><strong>Typ:</strong> {{ this.storeService.selectedKindergarden.typ }}</div>
+    </div>
+    <a mat-raised-button [routerLink]="'/dashboard'" color="primary" class="mt-3">Zur Anmeldung</a>
+</div>
